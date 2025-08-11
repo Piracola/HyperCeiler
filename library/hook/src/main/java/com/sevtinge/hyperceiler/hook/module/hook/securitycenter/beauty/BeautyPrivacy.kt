@@ -18,11 +18,11 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.securitycenter.beauty
 
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
-import java.lang.reflect.*
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHooks
+import java.lang.reflect.Method
 
 object BeautyPrivacy : BaseHook() {
     private val R0 by lazy<Method> {
@@ -37,17 +37,16 @@ object BeautyPrivacy : BaseHook() {
 
     private val invokeMethod by lazy<List<Method>> {
         DexKit.findMemberList("BeautyPrivacyList") {
-            it.findMethod {
+            it.findClass {
                 matcher {
-                    declaredClass {
-                        usingEqStrings("persist.sys.privacy_camera")
-                    }
+                    usingEqStrings("persist.sys.privacy_camera")
+                }
+            }.findMethod {
+                matcher {
                     paramTypes = emptyList()
                     returnType = "boolean"
                     addInvoke {
-                        declaredClass {
-                            usingEqStrings("persist.sys.privacy_camera")
-                        }
+                        declaredClass = R0.declaringClass.name
                         returnType = R0.returnType.name
                         paramTypes = listOf(R0.parameterTypes[0].name)
                     }

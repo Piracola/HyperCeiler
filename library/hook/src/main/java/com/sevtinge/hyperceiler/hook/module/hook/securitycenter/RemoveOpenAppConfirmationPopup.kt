@@ -20,19 +20,18 @@ package com.sevtinge.hyperceiler.hook.module.hook.securitycenter
 
 import android.annotation.SuppressLint
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 class RemoveOpenAppConfirmationPopup : BaseHook() {
     @SuppressLint("DiscouragedApi")
     override fun init() {
         loadClass("android.widget.TextView").methodFinder()
             .filterByName("setText")
-            .filterByParamTypes {
-                it[0] == CharSequence::class.java
-            }.first().createHook {
+            .filterByParamTypes(CharSequence::class.java)
+            .first().createHook {
                 after {
                     val textView = it.thisObject as TextView
                     if (it.args.isNotEmpty() && it.args[0]?.toString().equals(

@@ -33,11 +33,6 @@
 
     <SwitchPreference
         android:defaultValue="false"
-        android:key="prefs_key_home_dock_fold"
-        android:title="@string/home_dock_fold" />
-
-    <SwitchPreference
-        android:defaultValue="false"
         android:key="prefs_key_home_dock_disable_recents_icon"
         android:title="@string/home_dock_disable_recents_icon" />
 
@@ -81,7 +76,7 @@
 
         <Preference
             android:dependency="prefs_key_home_dock_bg_custom_enable"
-            android:fragment="com.sevtinge.hyperceiler.ui.sub.CustomBackgroundSettings"
+            android:fragment="com.sevtinge.hyperceiler.sub.CustomBackgroundSettings"
             android:key="prefs_key_home_dock_bg_custom"
             android:title="@string/home_dock_bg_custom" />
 
@@ -92,7 +87,7 @@
             android:summary="@string/home_dock_bg_height_desc"
             android:title="@string/home_dock_bg_height"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d dp"
+            app:format="%s dp"
             app:maxValue="300"
             app:showSeekBarValue="true"
             app:stepValue="1" />
@@ -104,7 +99,7 @@
             android:summary="@string/home_dock_bg_margin_horizontal_desc"
             android:title="@string/home_dock_bg_margin_horizontal"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d dp"
+            app:format="%s dp"
             app:maxValue="160"
             app:showSeekBarValue="true"
             app:stepValue="1" />
@@ -118,7 +113,7 @@
             app:defaultValueTitle="@string/array_default"
             app:maxValue="150"
             app:stepValue="1"
-            app:format="%d dp"
+            app:format="%s dp"
             app:showSeekBarValue="true" /-->
 
         <SeekBarPreferenceCompat
@@ -128,7 +123,7 @@
             android:summary="@string/home_dock_bg_margin_bottom_desc"
             android:title="@string/bottom_margin"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d dp"
+            app:format="%s dp"
             app:maxValue="150"
             app:showSeekBarValue="true"
             app:stepValue="1" />
@@ -139,7 +134,7 @@
             android:key="prefs_key_home_dock_bg_radius"
             android:title="@string/custom_background_corner_radius"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d dp"
+            app:format="%s dp"
             app:maxValue="60"
             app:showSeekBarValue="true"
             app:stepValue="1" />
@@ -150,7 +145,7 @@
             android:key="prefs_key_custom_background_blur_degree"
             android:title="@string/custom_background_blur_degree"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d bl"
+            app:format="%s bl"
             app:maxValue="500"
             app:showSeekBarValue="true"
             app:stepValue="1" />-->

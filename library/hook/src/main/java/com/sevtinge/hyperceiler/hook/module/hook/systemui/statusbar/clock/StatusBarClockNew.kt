@@ -24,21 +24,22 @@ import android.os.Handler
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createBeforeHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.utils.api.LazyClass.mNewClockClass
 import com.sevtinge.hyperceiler.hook.utils.callMethod
 import com.sevtinge.hyperceiler.hook.utils.devicesdk.DisplayUtils.dp2px
 import com.sevtinge.hyperceiler.hook.utils.devicesdk.isHyperOSVersion
+import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreAndroidVersion
 import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreHyperOSVersion
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import de.robv.android.xposed.XC_MethodHook
+import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBeforeHook
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import java.lang.reflect.Method
 import java.util.Timer
 import java.util.TimerTask
@@ -174,10 +175,10 @@ object StatusBarClockNew : BaseHook() {
             .filterByParamCount(3)
             .filterByParamTypes {
                 it[0] == Context::class.java
-            }.first().createAfterHook {
+            }.first().createAfterHook { param ->
                 runCatching {
                     val regex = Regex("(ss|s)")
-                    val miuiClock = it.thisObject as TextView
+                    val miuiClock = param.thisObject as TextView
                     val miuiClockName = miuiClock.resources.getResourceEntryName(miuiClock.id)
                         ?: return@createAfterHook
                     val isSec = setOf(
@@ -229,14 +230,7 @@ object StatusBarClockNew : BaseHook() {
                 }
             }
 
-        if (isMoreHyperOSVersion(2f) && bBold) {
-            loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback\$1").methodFinder()
-                .filterByName("onExpansionChanged").first().createAfterHook {
-                    val notificationHeaderExpandController =
-                        it.thisObject.getObjectField("this\$0")
-                    notificationHeaderExpandController!!.callMethod("updateWeight", 0.3f)
-                }
-        } else if (isHyperOSVersion(1f)) {
+        if (isHyperOSVersion(1f)) {
             runCatching {
                 loadClassOrNull("com.android.systemui.statusbar.policy.FakeStatusBarClockController")!!
                     .methodFinder().filterByName("initState")
@@ -255,13 +249,16 @@ object StatusBarClockNew : BaseHook() {
                 }
             }
 
-        mNewClockClass.methodFinder()
-            .filterByName("updateTime")
-            .single().createBeforeHook {
-                runCatching {
-                    applyMiuiClockStyleAndFormat(it)
+        if (!isMoreAndroidVersion(36)) {
+            // 在 Android 16 的 OS2.0.230.12.WOCCNXM 版本中，未发现此类名
+            mNewClockClass.methodFinder()
+                .filterByName("updateTime")
+                .single().createBeforeHook {
+                    runCatching {
+                        applyMiuiClockStyleAndFormat(it)
+                    }
                 }
-            }
+        }
     }
 
     private fun applyMiuiClockStyleAndFormat(hook: XC_MethodHook.MethodHookParam) {

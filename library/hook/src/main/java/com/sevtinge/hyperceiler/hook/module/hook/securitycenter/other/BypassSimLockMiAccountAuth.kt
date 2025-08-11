@@ -18,24 +18,24 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other
 
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
-import org.luckypray.dexkit.query.enums.*
-import java.lang.reflect.*
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import org.luckypray.dexkit.query.enums.StringMatchType
+import java.lang.reflect.Method
 
 object BypassSimLockMiAccountAuth : BaseHook() {
     private val findMethod by lazy<List<Method>> {
         DexKit.findMemberList("BypassSimLockMiAccountAuth") {
-            it.findMethod {
+            it.findClass {
                 matcher {
-                    declaredClass {
-                        addUsingString("SimLockUtils", StringMatchType.Contains)
-                    }
+                    addUsingString("SimLockUtils", StringMatchType.Contains)
+                }
+            }.findMethod {
+                matcher {
                     addCaller {
                         addUsingString("SimLockStartFragment::simLockSetUpFlow::step =", StringMatchType.Contains)
                     }
-                    paramCount = 1
                     paramTypes("android.content.Context")
                     returnType = "boolean"
                 }
@@ -44,7 +44,6 @@ object BypassSimLockMiAccountAuth : BaseHook() {
     }
 
     override fun init() {
-        logD(TAG, lpparam.packageName, "BypassSimLockMiAccountAuth find method is ${findMethod.last()}")
         findMethod.last().createHook {
             returnConstant(true)
         }

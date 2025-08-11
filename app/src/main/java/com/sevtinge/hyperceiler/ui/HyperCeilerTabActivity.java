@@ -1,18 +1,31 @@
+/*
+ * This file is part of HyperCeiler.
+
+ * HyperCeiler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ * Copyright (C) 2023-2025 HyperCeiler Contributions
+ */
 package com.sevtinge.hyperceiler.ui;
 
 import static com.sevtinge.hyperceiler.common.utils.PersistConfig.isLunarNewYearThemeView;
-import static com.sevtinge.hyperceiler.common.utils.PersistConfig.isNeedGrayView;
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.DeviceSDKKt.isTablet;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +37,15 @@ import com.sevtinge.hyperceiler.common.prefs.XmlPreference;
 import com.sevtinge.hyperceiler.common.utils.DialogHelper;
 import com.sevtinge.hyperceiler.common.utils.LanguageHelper;
 import com.sevtinge.hyperceiler.common.utils.search.SearchHelper;
-import com.sevtinge.hyperceiler.dashboard.SubSettings;
 import com.sevtinge.hyperceiler.hook.callback.IResult;
 import com.sevtinge.hyperceiler.hook.safe.CrashData;
 import com.sevtinge.hyperceiler.hook.utils.BackupUtils;
 import com.sevtinge.hyperceiler.hook.utils.ThreadPoolManager;
 import com.sevtinge.hyperceiler.hook.utils.log.LogManager;
 import com.sevtinge.hyperceiler.hook.utils.shell.ShellInit;
-import com.sevtinge.hyperceiler.ui.holiday.HolidayHelper;
+import com.sevtinge.hyperceiler.main.fragment.DetailFragment;
+import com.sevtinge.hyperceiler.main.NaviBaseActivity;
+import com.sevtinge.hyperceiler.main.holiday.HolidayHelper;
 import com.sevtinge.hyperceiler.utils.LogServiceUtils;
 import com.sevtinge.hyperceiler.utils.PermissionUtils;
 import com.sevtinge.hyperceiler.utils.XposedActivateHelper;
@@ -56,9 +70,7 @@ public class HyperCeilerTabActivity extends NaviBaseActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mHandler = new Handler(getMainLooper());
         LogManager.init();
-        if (isNeedGrayView) {
-            applyGrayScaleFilter();
-        }
+        applyGrayScaleFilter(this);
         HolidayHelper.init(this);
         LanguageHelper.init(this);
         PermissionUtils.init(this);
@@ -71,15 +83,6 @@ public class HyperCeilerTabActivity extends NaviBaseActivity
 
         appCrash = CrashData.toPkgList();
         mHandler.postDelayed(this::showSafeModeDialogIfNeeded, 600);
-    }
-
-    private void applyGrayScaleFilter() {
-        View decorView = getWindow().getDecorView();
-        Paint paint = new Paint();
-        ColorMatrix cm = new ColorMatrix();
-        cm.setSaturation(0);
-        paint.setColorFilter(new ColorMatrixColorFilter(cm));
-        decorView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -166,7 +169,7 @@ public class HyperCeilerTabActivity extends NaviBaseActivity
             savedInstanceState.putString("FragmentName", mFragmentName);
             Navigator.get(caller).navigate(new UpdateDetailFragmentNavInfo(-1, DetailFragment.class, savedInstanceState));
         } else {
-            mProxy.onStartSettingsForArguments(SubSettings.class, pref, false);
+            onStartSubSettingsForArguments(this, pref, false);
         }
         return true;
     }

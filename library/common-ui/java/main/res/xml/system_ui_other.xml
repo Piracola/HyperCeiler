@@ -86,7 +86,7 @@
             android:title="@string/system_ui_others_showpct_top"
             app:defaultValue="54"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d dp"
+            app:format="%s dp"
             app:maxValue="1024"
             app:showSeekBarValue="true"
             app:stepValue="1" />
@@ -149,6 +149,11 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/system_ui_another_title">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:title="@string/system_framework_background_blur_toast"
+            android:key="prefs_key_system_framework_background_blur_toast" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="prefs_key_system_ui_disable_volume"

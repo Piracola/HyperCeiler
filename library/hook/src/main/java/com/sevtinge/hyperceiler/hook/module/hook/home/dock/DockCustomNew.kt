@@ -23,9 +23,6 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
 import com.sevtinge.hyperceiler.hook.module.base.tool.AppsTool
@@ -37,6 +34,10 @@ import com.sevtinge.hyperceiler.hook.utils.blur.MiBlurUtilsKt.setMiViewBlurMode
 import com.sevtinge.hyperceiler.hook.utils.devicesdk.DisplayUtils.dp2px
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldAs
 import com.sevtinge.hyperceiler.hook.utils.hookAfterMethod
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
+import org.luckypray.dexkit.query.enums.StringMatchType
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
@@ -53,7 +54,7 @@ object DockCustomNew : BaseHook() {
         DexKit.findMember("ShowAnimationLambda") { bridge ->
             bridge.findMethod {
                 matcher {
-                    declaredClass("com.miui.home.launcher.compat.UserPresentAnimationCompatV12Phone")
+                    declaredClass("com.miui.home.launcher.compat.UserPresentAnimationCompat", StringMatchType.StartsWith)
                     addInvoke {
                         name = "conversionValueFrom3DTo2D"
                     }
@@ -65,6 +66,7 @@ object DockCustomNew : BaseHook() {
         } as Method?
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun init() {
         val dockBgStyle = mPrefsMap.getStringAsInt("home_dock_add_blur", 0)
         var dockBlurView: View? = null
@@ -138,10 +140,18 @@ object DockCustomNew : BaseHook() {
     }
 
     private fun View.addBlur() {
+        val isDarkMode by lazy {
+            if (AppsTool.isDarkMode(context) && mPrefsMap.getStringAsInt("home_other_home_mode", 0) == 0) {
+                AppsTool.isDarkMode(context)
+            } else {
+                mPrefsMap.getStringAsInt("home_other_home_mode", 0) == 2
+            }
+        }
+
         clearMiBackgroundBlendColor()
         setMiViewBlurMode(1)
 
-        if (AppsTool.isDarkMode(context)) {
+        if (isDarkMode) {
             addMiBackgroundBlendColor(0xB3767676.toInt(), 100)
             addMiBackgroundBlendColor(0xFF149400.toInt(), 106)
         } else {

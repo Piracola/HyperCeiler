@@ -18,26 +18,29 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.various.clipboard
 
-import android.graphics.drawable.*
-import android.view.*
-import android.view.View.*
-import android.widget.*
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.finders.*
+import android.graphics.drawable.Drawable
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
 import com.sevtinge.hyperceiler.hook.R
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import com.sevtinge.hyperceiler.hook.module.base.tool.ResourcesTool
+import com.sevtinge.hyperceiler.hook.module.base.tool.OtherTool
 import com.sevtinge.hyperceiler.hook.utils.callMethod
 import com.sevtinge.hyperceiler.hook.utils.callStaticMethod
 import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreHyperOSVersion
+import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreSmallVersion
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldAs
 import com.sevtinge.hyperceiler.hook.utils.hookAfterMethod
-import de.robv.android.xposed.*
+import de.robv.android.xposed.XposedHelpers
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 
 class ClearClipboard : BaseHook() {
     override fun init() {
-        if (!isMoreHyperOSVersion(2f)) return
+        if (!isMoreHyperOSVersion(2f) || isMoreSmallVersion(200, 2f)) return
         MethodFinder.fromClass("android.inputmethodservice.InputMethodModuleManager")
             .filterByName("loadDex")
             .filterByParamTypes(ClassLoader::class.java, String::class.java)
@@ -61,7 +64,8 @@ class ClearClipboard : BaseHook() {
                 it.thisObject.getObjectFieldAs<ImageView>("addButton").apply {
                     addButton = this
                     addButtonIcon = drawable
-                    removeIcon = ResourcesTool.loadModuleRes(context).getDrawable(R.drawable.ic_remove, context.theme)
+                    removeIcon = OtherTool.getModuleRes(context)
+                        .getDrawable(R.drawable.ic_remove, context.theme)
 
                     callMethod("setVisibility", 0)
                     onClickAddButton = callMethod("getListenerInfo")!!.getObjectFieldAs("mOnClickListener")

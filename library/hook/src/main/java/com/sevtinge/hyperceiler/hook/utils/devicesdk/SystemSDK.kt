@@ -1,28 +1,30 @@
 /*
-  * This file is part of HyperCeiler.
+ * This file is part of HyperCeiler.
 
-  * HyperCeiler is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU Affero General Public License as
-  * published by the Free Software Foundation, either version 3 of the
-  * License.
+ * HyperCeiler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License.
 
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU Affero General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
 
-  * You should have received a copy of the GNU Affero General Public License
-  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-  * Copyright (C) 2023-2025 HyperCeiler Contributions
-*/
+ * Copyright (C) 2023-2025 HyperCeiler Contributions
+ */
 package com.sevtinge.hyperceiler.hook.utils.devicesdk
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Process
 import com.sevtinge.hyperceiler.hook.utils.PropUtils.getProp
 import com.sevtinge.hyperceiler.hook.utils.shell.ShellUtils.rootExecCmd
-
 
 // 设备信息相关
 fun getSystemVersionIncremental(): String = getProp("ro.mi.os.version.incremental").ifEmpty { getProp("ro.system.build.version.incremental") }
@@ -36,6 +38,8 @@ fun getCurrentUserId(): Int = Process.myUserHandle().hashCode()
 // 仅获取设备信息，不要用于判断
 fun getAndroidVersion(): Int = androidSDK
 fun getHyperOSVersion(): Float = hyperOSSDK
+fun isSupportTelephony(context: Context): Boolean = context.packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)
+fun isSupportWifi(context: Context): Boolean = context.packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)
 
 private val androidSDK: Int by lazy {
     Build.VERSION.SDK_INT
@@ -52,10 +56,13 @@ private val smallVersion: Int by lazy {
     }
 }
 private val mSupportHyperOsVersion: List<Float> by lazy {
-    mutableListOf(-1.0f, 1.0f, 2.0f)
+    mutableListOf(1.0f)
+}
+private val mSupportSmallVersion: List<Float> by lazy {
+    mutableListOf(2.0f, 2.1f, 2.2f)
 }
 private val mSupportAndroidVersion: List<Int> by lazy {
-    mutableListOf(33, 34, 35)
+    mutableListOf(34, 35)
 }
 
 /**
@@ -103,8 +110,16 @@ fun isMoreSmallVersion(code: Int, osVersion: Float): Boolean {
     }
 }
 
+@SuppressLint("DefaultLocale")
 fun isFullSupport(): Boolean {
-    val isHyperOsVersionSupport = mSupportHyperOsVersion.contains(hyperOSSDK)
+    val isBigVersionSupport = mSupportHyperOsVersion.contains(hyperOSSDK)
+    val isSmallVersionSupport = mSupportSmallVersion.contains(String.format("%.1f", hyperOSSDK + smallVersion * 0.001f).toFloatOrNull())
     val isAndroidVersionSupport = mSupportAndroidVersion.contains(androidSDK)
+
+    val isHyperOsVersionSupport = if (hyperOSSDK >= 2f) {
+        isSmallVersionSupport
+    } else {
+        isBigVersionSupport
+    }
     return isHyperOsVersionSupport && isAndroidVersionSupport
 }

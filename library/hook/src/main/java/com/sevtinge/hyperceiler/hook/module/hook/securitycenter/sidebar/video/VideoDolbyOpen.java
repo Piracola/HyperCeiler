@@ -18,12 +18,12 @@
  */
 package com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.video;
 
-import com.github.kyuubiran.ezxhelper.HookFactory;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit;
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.IDexKit;
 
 import org.luckypray.dexkit.DexKitBridge;
+import org.luckypray.dexkit.query.FindClass;
 import org.luckypray.dexkit.query.FindMethod;
 import org.luckypray.dexkit.query.matchers.ClassMatcher;
 import org.luckypray.dexkit.query.matchers.MethodMatcher;
@@ -31,6 +31,8 @@ import org.luckypray.dexkit.result.MethodData;
 import org.luckypray.dexkit.result.base.BaseData;
 
 import java.lang.reflect.Method;
+
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory;
 
 public class VideoDolbyOpen extends BaseHook {
     @Override
@@ -62,12 +64,11 @@ public class VideoDolbyOpen extends BaseHook {
         Method method = DexKit.findMember("Dolby", new IDexKit() {
             @Override
             public BaseData dexkit(DexKitBridge bridge) throws ReflectiveOperationException {
-                MethodData methodData = bridge.findMethod(FindMethod.create()
-                        .matcher(MethodMatcher.create()
-                                .declaredClass(ClassMatcher.create()
-                                        .usingStrings("checkMiGamePermission error"))
-                                .usingStrings("dolby")
-                        )).singleOrNull();
+                MethodData methodData = bridge.findClass(FindClass.create()
+                    .matcher(ClassMatcher.create().usingStrings("checkMiGamePermission error"))
+                ).findMethod(FindMethod.create()
+                    .matcher(MethodMatcher.create().usingStrings("dolby"))
+                ).singleOrNull();
                 return methodData;
             }
         });

@@ -18,6 +18,7 @@
  */
 package com.sevtinge.hyperceiler.hook.module.base.tool;
 
+import static com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.isNewResHook;
 import static com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap;
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.DeviceSDKKt.isDarkMode;
 import static com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logE;
@@ -55,7 +56,11 @@ public class OtherTool {
 
     public static Resources getModuleRes(Context context)
             throws PackageManager.NameNotFoundException {
-        return ResourcesTool.loadModuleRes(context);
+        if (isNewResHook) {
+            return context.getResources();
+        } else {
+            return ResourcesTool.loadModuleRes(context);
+        }
     }
 
     public static Context findContext(@ContextUtils.Duration int flag) {
@@ -116,35 +121,47 @@ public class OtherTool {
     public static void initPct(ViewGroup container, int source) {
         Resources res = container.getContext().getResources();
         if (mPct == null) {
-            mPct = new TextView(container.getContext());
+            Context context = container.getContext();
+            float density = res.getDisplayMetrics().density;
+
+            mPct = new TextView(context);
             mPct.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
             mPct.setGravity(Gravity.CENTER);
-            float density = res.getDisplayMetrics().density;
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-            lp.topMargin = Math.round(mPrefsMap.getInt("system_ui_others_showpct_top", 54) * density);
-            // lp.topMargin = Math.round(54 * density);
+
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            );
+            lp.topMargin = Math.round(mPrefsMap.getInt("system_ui_others_showpct_top", 54) * density *
+                (res.getConfiguration().orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE ? 0.7f : 1.0f));
             lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
-            mPct.setPadding(Math.round(20 * density), Math.round(10 * density), Math.round(18 * density), Math.round(12 * density));
+            mPct.setPadding(
+                Math.round(20 * density),
+                Math.round(10 * density),
+                Math.round(18 * density),
+                Math.round(12 * density)
+            );
             mPct.setLayoutParams(lp);
+
             try {
-                Resources modRes = getModuleRes(container.getContext());
+                Resources modRes = getModuleRes(context);
                 mPct.setTextColor(ColorStateList.valueOf(Color.parseColor("#FFFFFFFF")));
-                mPct.setBackground(modRes.getDrawable(R.drawable.input_background, container.getContext().getTheme()));
+                mPct.setBackground(modRes.getDrawable(R.drawable.input_background, context.getTheme()));
             } catch (Throwable err) {
                 logE("ShowPct", err);
             }
+
             if (mPrefsMap.getBoolean("system_showpct_use_blur")) {
                 try {
-                    int i;
-                    if (isDarkMode()) i = 220;
-                    else i = 320;
-                    int a;
-                    if (isDarkMode()) a = 140;
-                    else a = 160;
-                    MiBlurUtils.setContainerPassBlur(mPct, i, true);
-                    MiBlurUtils.setMiViewBlurMode(mPct, 1); // 设置为 3 的话，整个 View 都会带模糊，咱不理解，摆烂
+                    int blurRadius = isDarkMode() ? 220 : 320;
+                    int alpha = isDarkMode() ? 140 : 160;
+
                     MiBlurUtils.clearMiBackgroundBlendColor(mPct);
-                    MiBlurUtils.addMiBackgroundBlendColor(mPct, Color.argb(a, 0, 0, 0), 103);
+                    MiBlurUtils.setPassWindowBlurEnabled(mPct, true);
+                    MiBlurUtils.setMiViewBlurMode(mPct, 1);
+                    MiBlurUtils.setMiBackgroundBlurMode(mPct, 1);
+                    MiBlurUtils.setMiBackgroundBlurRadius(mPct, blurRadius);
+                    MiBlurUtils.addMiBackgroundBlendColor(mPct, Color.argb(alpha, 0, 0, 0), 101);
                 } catch (Throwable e) {
                     logE("ShowPct", e);
                 }

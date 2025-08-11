@@ -38,9 +38,7 @@ public class ScreenRotation extends BaseHook {
                 XposedHelpers.setIntField(param.thisObject, "mAllowAllRotations", mPrefsMap.getBoolean("system_framework_screen_all_rotations") ? 1 : 0);
             }
         });
-    }
 
-    public static void initRes() {
-        mResHook.setObjectReplacement("android", "bool", "config_allowAllRotations", mPrefsMap.getBoolean("system_framework_screen_all_rotations"));
+        setObjectReplacement("android", "bool", "config_allowAllRotations", mPrefsMap.getBoolean("system_framework_screen_all_rotations"));
     }
 }

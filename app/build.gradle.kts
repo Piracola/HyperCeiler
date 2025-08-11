@@ -62,7 +62,7 @@ android {
         minSdk = 34
         targetSdk = 36
         versionCode = getVersionCode()
-        versionName = "2.6.160"
+        versionName = "2.6.161"
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").apply {
             timeZone = TimeZone.getTimeZone("Asia/Shanghai")
@@ -119,6 +119,10 @@ android {
     }
     val gitCode = getVersionCode()
     val gitHash = getGitHash()
+    val sdf = SimpleDateFormat("MMddHHmm").apply {
+        timeZone = TimeZone.getTimeZone("Asia/Shanghai")
+    }
+    val buildTime = sdf.format(Date())
 
     signingConfigs {
         create("hasProperties") {
@@ -183,7 +187,7 @@ android {
             }
         }
         debug {
-            versionNameSuffix = "_${gitHash}_r${gitCode}"
+            versionNameSuffix = "_${buildTime}_r${gitCode}"
             buildConfigField("String", "GIT_HASH", "\"${getGitHashLong()}\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
             if (properties != null) {

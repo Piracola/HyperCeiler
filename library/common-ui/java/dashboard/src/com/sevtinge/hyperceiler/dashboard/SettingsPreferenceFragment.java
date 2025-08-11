@@ -21,13 +21,14 @@ package com.sevtinge.hyperceiler.dashboard;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sevtinge.hyperceiler.dashboard.base.fragment.BasePreferenceFragment;
-import com.sevtinge.hyperceiler.ui.R;
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils;
+import com.sevtinge.hyperceiler.ui.R;
 
 public abstract class SettingsPreferenceFragment extends BasePreferenceFragment {
 
@@ -41,20 +42,20 @@ public abstract class SettingsPreferenceFragment extends BasePreferenceFragment 
     private final String SAVE_HIGHLIGHTED_KEY = "android:preference_highlighted";
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         highlightPreferenceIfNeeded(mPreferenceKey);
     }
 
     @Override
     public int getThemeRes() {
-        return R.style.Theme_Navigator_ContentChild_Home;
+        return 0;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getThemeRes() != 0) setThemeRes(R.style.AppTheme);
+        if (getThemeRes() != 0) setThemeRes(R.style.SubSettingsTheme);
         if (savedInstanceState != null) {
             mPreferenceHighlighted = savedInstanceState.getBoolean(SAVE_HIGHLIGHTED_KEY);
         }
@@ -113,4 +114,13 @@ public abstract class SettingsPreferenceFragment extends BasePreferenceFragment 
         }
         return false;
     }
+
+    public boolean cleanKey(String key) {
+        if (hasKey(key)) {
+            getSharedPreferences().edit().remove(key).apply();
+            return true;
+        }
+        return hasKey(key);
+    }
+
 }

@@ -1,3 +1,21 @@
+/*
+ * This file is part of HyperCeiler.
+
+ * HyperCeiler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+ * Copyright (C) 2023-2025 HyperCeiler Contributions
+ */
 package com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen
 
 import android.annotation.SuppressLint
@@ -9,14 +27,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.ObjectUtils.getObjectOrNullAs
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.sevtinge.hyperceiler.hook.R
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.MethodHook.returnConstant
-import com.sevtinge.hyperceiler.hook.module.base.tool.ResourcesTool
+import com.sevtinge.hyperceiler.hook.module.base.tool.OtherTool
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.api.FlashlightController
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.api.MiuiStub
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.lockscreen.Keyguard.keyguardBottomAreaInjector
@@ -24,7 +39,10 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.lockscreen.Keygua
 import com.sevtinge.hyperceiler.hook.utils.MethodHookParam
 import com.sevtinge.hyperceiler.hook.utils.getAdditionalInstanceFieldAs
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldAs
+import com.sevtinge.hyperceiler.hook.utils.getObjectFieldOrNullAs
 import com.sevtinge.hyperceiler.hook.utils.setAdditionalInstanceField
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 
 object CustomizeBottomButton : BaseHook() {
     override fun init() {
@@ -41,7 +59,7 @@ object CustomizeBottomButton : BaseHook() {
             .filterByName("updateIcons")
             .single().createAfterHook {
                 val left =
-                    getObjectOrNullAs<LinearLayout>(it.thisObject, "mLeftAffordanceViewLayout") ?: return@createAfterHook
+                    it.thisObject.getObjectFieldOrNullAs<LinearLayout>("mLeftAffordanceViewLayout") ?: return@createAfterHook
                 left.visibility = View.GONE
             }
     }
@@ -156,7 +174,7 @@ object CustomizeBottomButton : BaseHook() {
                 flashlightController = MiuiStub.sysUIProvider.flashlightController
 
                 val context = MiuiStub.baseProvider.context
-                ResourcesTool.loadModuleRes(context)
+                OtherTool.getModuleRes(context)
                 chargeImage(param, context)
             }
         })

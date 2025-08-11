@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ This file is part of HyperCeiler.
   ~
   ~ HyperCeiler is free software: you can redistribute it and/or modify
@@ -116,7 +117,7 @@
         </activity>
 
         <activity
-            android:name=".ui.sub.SubPickerActivity"
+            android:name=".sub.SubPickerActivity"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
 
         <meta-data

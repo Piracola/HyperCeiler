@@ -18,19 +18,20 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game
 
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
-import java.lang.reflect.*
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import java.lang.reflect.Method
 
 object UnlockGunService : BaseHook() {
     override fun init() {
         DexKit.findMember<Method>("UnlockGunService") {
-            it.findMethod {
+            it.findClass {
                 matcher {
-                    declaredClass {
-                        addEqString("gb_game_collimator_status")
-                    }
+                    addEqString("gb_game_collimator_status")
+                }
+            }.findMethod {
+                matcher {
                     returnType = "boolean"
                     paramTypes = listOf("java.lang.String")
                 }

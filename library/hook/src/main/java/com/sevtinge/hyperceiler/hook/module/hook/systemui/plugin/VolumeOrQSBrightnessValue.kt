@@ -30,20 +30,23 @@ import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.util.TypedValueCompat.dpToPx
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHook
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createAfterHooks
-import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import com.github.kyuubiran.ezxhelper.misc.ViewUtils.findViewByIdName
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.api.mSupportSV
+import com.sevtinge.hyperceiler.hook.utils.blur.MiBlurUtilsKt.chooseBackgroundBlurContainer
 import com.sevtinge.hyperceiler.hook.utils.callMethod
 import com.sevtinge.hyperceiler.hook.utils.callStaticMethod
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
+import com.sevtinge.hyperceiler.hook.utils.getObjectFieldAs
+import com.sevtinge.hyperceiler.hook.utils.getObjectFieldOrNullAs
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.replaceMethod
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.XposedHelpers.getStaticBooleanField
+import io.github.kyuubiran.ezxhelper.android.util.ViewUtil.findViewByIdName
+import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHooks
 
 object VolumeOrQSBrightnessValue {
     private const val plugin = "miui.systemui.plugin"
@@ -63,10 +66,8 @@ object VolumeOrQSBrightnessValue {
 
         if (volumeShow) {
             val volumeUtils = loadClass("miui.systemui.util.VolumeUtils", classLoader)
-            val volumeSliderController = loadClass(
-                "miui.systemui.controlcenter.panel.main.volume.VolumeSliderController",
-                classLoader
-            )
+            val volumeSliderController =
+                loadClass("miui.systemui.controlcenter.panel.main.volume.VolumeSliderController", classLoader)
 
             // 控制中心音量条百分比进度值计算
             volumeSliderController.methodFinder()
@@ -252,12 +253,12 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("frameCallback")
                 .first().createAfterHook {
                     val sliderController = it.thisObject.getObjectField("sliderController")
-                    val item = callMethod(sliderController as String?, "getVToggleSliderInner") as ViewGroup
+                    val item = sliderController?.callMethod("getVToggleSliderInner") as ViewGroup
                     val topValue = item.findViewByIdName("top_text") as TextView
-                    val icon = callMethod(sliderController, "getVIcon") as View
+                    val icon = sliderController.callMethod("getVIcon") as View
 
-                    val sizeBgX = it.thisObject.getObjectField("sizeBgX") as Float
-                    val left = (dpToPx(40f, topValue.resources.displayMetrics).toInt() - icon.layoutParams.width) / 2
+                    val sizeBgX = it.thisObject.getObjectFieldAs<Float>("sizeBgX")
+                    val left = (dpToPx(50f, topValue.resources.displayMetrics) - icon.layoutParams.width).toInt() / 2
                     topValue.left = icon.left - left
                     topValue.right = icon.right + left
                     topValue.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f + 2f * sizeBgX)
@@ -271,8 +272,8 @@ object VolumeOrQSBrightnessValue {
                     val topText = brightnessPanel.findViewByIdName("top_text") as TextView
                     topText.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
                     val mLayoutParams =
-                        (topText.layoutParams as FrameLayout.LayoutParams).apply {
-                            width = dpToPx(40f, topText.resources.displayMetrics).toInt()
+                        (topText.layoutParams as ViewGroup.LayoutParams).apply {
+                            width = dpToPx(50f, topText.resources.displayMetrics).toInt()
                         }
                     topText.layoutParams = mLayoutParams
                 }
@@ -286,12 +287,12 @@ object VolumeOrQSBrightnessValue {
                     val viewHolder = it.result
 
                     if (viewHolder != null) {
-                        val root = XposedHelpers.getObjectField(viewHolder, "itemView") as ViewGroup
+                        val root = viewHolder.getObjectFieldAs<ViewGroup>("itemView")
                         val topText = root.findViewByIdName("top_text") as TextView
                         topText.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
                         val mLayoutParams =
-                            (topText.layoutParams as FrameLayout.LayoutParams).apply {
-                                width = dpToPx(40f, root.resources.displayMetrics).toInt()
+                            (topText.layoutParams as ViewGroup.LayoutParams).apply {
+                                width = dpToPx(50f, root.resources.displayMetrics).toInt()
                             }
                         topText.layoutParams = mLayoutParams
                     }
@@ -304,33 +305,56 @@ object VolumeOrQSBrightnessValue {
         val toggleSliderViewHolder =
             loadClass("miui.systemui.controlcenter.panel.main.recyclerview.ToggleSliderViewHolder", classLoader)
 
-        toggleSliderViewHolder.methodFinder()
-            .filterByName("updateBlendBlur")
-            .first().createAfterHook {
-                val context = it.thisObject.callMethod("getContext") as Context
+        toggleSliderViewHolder.methodFinder().apply {
+            filterByName("updateSize")
+                .first().createAfterHook {
+                    val item = it.thisObject.getObjectField("itemView") as View
+                    val topValue = item.findViewByIdName("top_text") as TextView
+                    topValue.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+                    topValue.setTextSize(TypedValue.COMPLEX_UNIT_DIP,13f)
 
-                val item = it.thisObject.getObjectField("itemView") as View
-                val topValue = item.findViewByIdName("top_text") as TextView
-
-                if (!controlCenterUtils.getBackgroundBlurOpenedInDefaultTheme(context)) {
-                    val colorId = context.resources.getIdentifier("toggle_slider_top_text_color", "color", "miui.systemui.plugin")
-                    val color = item.resources.getColor(colorId, null)
-
-                    topValue.setTextColor(color)
-                    miBlurCompat.setMiViewBlurModeCompat(topValue, 0)
-                    miBlurCompat.clearMiBackgroundBlendColorCompat(topValue)
-                    return@createAfterHook
                 }
-                // Color.WHITE Color.parseColor("#959595")
-                topValue.setTextColor(Color.WHITE)
-                miBlurCompat.setMiViewBlurModeCompat(topValue, 3)
+            filterByName("updateBlendBlur")
+                .first().createAfterHook {
+                    val context = it.thisObject.callMethod("getContext") as Context
 
-                val colorArray: IntArray =
-                    context.resources.getIntArrayBy("toggle_slider_icon_blend_colors", plugin)
-                miBlurCompat.setMiBackgroundBlendColors(topValue, colorArray, 1f)
+                    val item = it.thisObject.getObjectField("itemView") as View
+                    val topValue = item.findViewByIdName("top_text") as TextView
 
-            }
+                    if (!controlCenterUtils.getBackgroundBlurOpenedInDefaultTheme(context)) {
+                        val colorId = context.resources.getIdentifier(
+                            "toggle_slider_top_text_color",
+                            "color",
+                            "miui.systemui.plugin"
+                        )
+                        val color = item.resources.getColor(colorId, null)
 
+                        topValue.setTextColor(color)
+                        miBlurCompat.setMiViewBlurModeCompat(topValue, 0)
+                        miBlurCompat.clearMiBackgroundBlendColorCompat(topValue)
+                        return@createAfterHook
+                    }
+                    topValue.setTextColor(Color.WHITE)
+                    val inMirror = it.thisObject.getObjectField("inMirror") as Boolean
+                    topValue.chooseBackgroundBlurContainer(
+                        if (inMirror) {
+                            with(it.thisObject) {
+                                getObjectFieldOrNullAs<View>("mirrorBlendBackground")
+                                    ?: getObjectFieldOrNullAs<View>("mirrorBlurProvider")
+                            }
+                        } else {
+                            null
+                        }
+                    )
+
+                    miBlurCompat.setMiViewBlurModeCompat(topValue, 3)
+
+                    val colorArray: IntArray =
+                        context.resources.getIntArrayBy("toggle_slider_icon_blend_colors", plugin)
+                    miBlurCompat.setMiBackgroundBlendColors(topValue, colorArray, 1f)
+
+                }
+        }
     }
 
     private fun convertToPercentageProgress(

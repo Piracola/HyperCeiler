@@ -46,13 +46,31 @@
 
     <PreferenceCategory android:title="@string/system_ui_control_center_notification_title">
         <Preference
-            android:fragment="com.sevtinge.hyperceiler.ui.hooker.systemui.MediaCardSettings"
+            android:fragment="com.sevtinge.hyperceiler.hooker.systemui.MediaCardSettings"
             android:key="prefs_key_system_ui_control_center_media_control_media_custom"
             android:title="@string/system_ui_controlcenter_media_card_title" />
 
         <Preference
             android:key="prefs_key_system_ui_control_center_expand_notification"
             android:title="@string/system_ui_control_center_expand_notification" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_system_ui_control_center_auto_clean_expand_notification"
+            android:title="@string/system_ui_control_center_auto_clean_expand_notification" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="45"
+            android:dependency="prefs_key_system_ui_control_center_auto_clean_expand_notification"
+            android:key="prefs_key_system_ui_control_center_expand_notification_show_time"
+            android:title="@string/system_ui_control_center_expand_notification_show_time"
+            app:defaultValueTitle="@string/array_default"
+            app:showDividerValue="10"
+            app:format="%s s"
+            app:maxValue="100"
+            app:minValue="20"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
 
         <SwitchPreference
             android:defaultValue="false"
@@ -116,7 +134,7 @@
 
     <PreferenceCategory android:title="@string/system_ui_controlcenter_new_title">
         <Preference
-            android:fragment="com.sevtinge.hyperceiler.ui.hooker.systemui.TileSettings"
+            android:fragment="com.sevtinge.hyperceiler.hooker.systemui.TileSettings"
             android:key="prefs_key_system_ui_control_center_tile_settings"
             android:title="@string/system_ui_control_center_magnet_tile_settings" />
 

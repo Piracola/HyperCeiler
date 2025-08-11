@@ -45,6 +45,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-overwrite-existing: true
 
       - name: Create Sign File
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -109,7 +111,7 @@ jobs:
     needs: build_app
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: artifacts
 
@@ -140,7 +142,7 @@ jobs:
     needs: build_app
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: artifacts
 

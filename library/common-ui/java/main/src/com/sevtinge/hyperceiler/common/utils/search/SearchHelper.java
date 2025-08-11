@@ -26,64 +26,63 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.text.TextUtils;
 
-import com.sevtinge.hyperceiler.hook.utils.ThreadPoolManager;
-import com.sevtinge.hyperceiler.ui.hooker.securitycenter.OtherSettings;
-import com.sevtinge.hyperceiler.ui.R;
 import com.sevtinge.hyperceiler.common.model.data.ModData;
-import com.sevtinge.hyperceiler.ui.hooker.AodFragment;
-import com.sevtinge.hyperceiler.ui.hooker.CameraNewFragment;
-import com.sevtinge.hyperceiler.ui.hooker.ContentExtensionFragment;
-import com.sevtinge.hyperceiler.ui.hooker.MiCloudServiceFragment;
-import com.sevtinge.hyperceiler.ui.hooker.MiLinkFragment;
-import com.sevtinge.hyperceiler.ui.hooker.MiShareFragment;
-import com.sevtinge.hyperceiler.ui.hooker.NfcFragment;
-import com.sevtinge.hyperceiler.ui.hooker.PersonalAssistantFragment;
-import com.sevtinge.hyperceiler.ui.hooker.PhoneFragment;
-import com.sevtinge.hyperceiler.ui.hooker.SecurityAddFragment;
-import com.sevtinge.hyperceiler.ui.hooker.SystemSettingsFragment;
-import com.sevtinge.hyperceiler.ui.hooker.UpdaterFragment;
-import com.sevtinge.hyperceiler.ui.hooker.VariousFragment;
-import com.sevtinge.hyperceiler.ui.hooker.WeatherFragment;
 import com.sevtinge.hyperceiler.dashboard.DashboardFragment;
-import com.sevtinge.hyperceiler.ui.hooker.framework.CorePatchSettings;
-import com.sevtinge.hyperceiler.ui.hooker.framework.DisplaySettings;
-import com.sevtinge.hyperceiler.ui.hooker.framework.FreeFormSettings;
-import com.sevtinge.hyperceiler.ui.hooker.framework.NetworkSettings;
-import com.sevtinge.hyperceiler.ui.hooker.framework.VolumeSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeDockSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeDrawerSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeFolderSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeGestureSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeLayoutSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeOtherSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeRecentSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeTitleAnimSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeTitleSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.HomeWidgetSettings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim2Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim3Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim4Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim5Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim7Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim8Settings;
-import com.sevtinge.hyperceiler.ui.hooker.home.anim.HomeTitleAnim9Settings;
-import com.sevtinge.hyperceiler.ui.hooker.securitycenter.ApplicationsSettings;
-import com.sevtinge.hyperceiler.ui.hooker.securitycenter.PrivacySafetySettings;
-import com.sevtinge.hyperceiler.ui.hooker.securitycenter.SidebarSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.ControlCenterSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.LockScreenSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.NavigationSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.StatusBarSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.SystemUIOtherSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.BatteryStyleSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.DoubleLineNetworkSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.IconManageNewSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.MobileNetworkTypeSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.NetworkSpeedIndicatorSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.NewClockIndicatorSettings;
-import com.sevtinge.hyperceiler.ui.hooker.systemui.statusbar.StrongToastSettings;
-import com.sevtinge.hyperceiler.ui.hooker.various.AOSPSettings;
+import com.sevtinge.hyperceiler.hook.utils.ThreadPoolManager;
 import com.sevtinge.hyperceiler.hook.utils.log.AndroidLogUtils;
+import com.sevtinge.hyperceiler.hooker.securitycenter.OtherSettings;
+import com.sevtinge.hyperceiler.ui.R;
+import com.sevtinge.hyperceiler.hooker.AodFragment;
+import com.sevtinge.hyperceiler.hooker.CameraNewFragment;
+import com.sevtinge.hyperceiler.hooker.ContentExtensionFragment;
+import com.sevtinge.hyperceiler.hooker.MiCloudServiceFragment;
+import com.sevtinge.hyperceiler.hooker.MiLinkFragment;
+import com.sevtinge.hyperceiler.hooker.MiShareFragment;
+import com.sevtinge.hyperceiler.hooker.NfcFragment;
+import com.sevtinge.hyperceiler.hooker.PersonalAssistantFragment;
+import com.sevtinge.hyperceiler.hooker.PhoneFragment;
+import com.sevtinge.hyperceiler.hooker.SecurityAddFragment;
+import com.sevtinge.hyperceiler.hooker.SystemSettingsFragment;
+import com.sevtinge.hyperceiler.hooker.UpdaterFragment;
+import com.sevtinge.hyperceiler.hooker.VariousFragment;
+import com.sevtinge.hyperceiler.hooker.WeatherFragment;
+import com.sevtinge.hyperceiler.hooker.framework.CorePatchSettings;
+import com.sevtinge.hyperceiler.hooker.framework.DisplaySettings;
+import com.sevtinge.hyperceiler.hooker.framework.FreeFormSettings;
+import com.sevtinge.hyperceiler.hooker.framework.NetworkSettings;
+import com.sevtinge.hyperceiler.hooker.framework.VolumeSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeDockSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeDrawerSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeFolderSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeGestureSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeLayoutSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeOtherSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeRecentSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeTitleAnimSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeTitleSettings;
+import com.sevtinge.hyperceiler.hooker.home.HomeWidgetSettings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim2Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim3Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim4Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim5Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim7Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim8Settings;
+import com.sevtinge.hyperceiler.hooker.home.anim.HomeTitleAnim9Settings;
+import com.sevtinge.hyperceiler.hooker.securitycenter.ApplicationsSettings;
+import com.sevtinge.hyperceiler.hooker.securitycenter.PrivacySafetySettings;
+import com.sevtinge.hyperceiler.hooker.securitycenter.SidebarSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.ControlCenterSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.LockScreenSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.NavigationSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.StatusBarSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.BatteryStyleSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.DoubleLineNetworkSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.IconManageNewSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.MobileNetworkTypeSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.NetworkSpeedIndicatorSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.NewClockIndicatorSettings;
+import com.sevtinge.hyperceiler.hooker.systemui.statusbar.StrongToastSettings;
+import com.sevtinge.hyperceiler.hooker.various.AOSPSettings;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -96,15 +95,11 @@ public class SearchHelper {
 
     public static final int MARK_COLOR_VIBRANT = Color.rgb(255, 0, 0);
     public static final String NEW_MODS_SEARCH_QUERY = "\uD83C\uDD95";
-    public static List<ModData> allModsList = new ArrayList<>();
+    public static final List<ModData> allModsList = new ArrayList<>();
 
     public static String TAG = "SearchHelper";
 
-    public static final HashSet<String> NEW_MODS = new HashSet<>(
-            Set.of(
-                    "pref_key_launcher_nozoomanim"
-            )
-    );
+    public static final HashSet<String> NEW_MODS = new HashSet<>(Set.of("pref_key_launcher_nozoomanim"));
 
     public static final String ANDROID_NS = "http://schemas.android.com/apk/res/android";
     public static final String APP_NS = "http://schemas.android.com/apk/res-auto";
@@ -125,7 +120,7 @@ public class SearchHelper {
         parsePrefXmlForFramework(context, VolumeSettings.class, R.xml.framework_volume);
         parsePrefXmlForFramework(context, NetworkSettings.class, R.xml.framework_phone);
         parsePrefXmlForFramework(context, DisplaySettings.class, R.xml.framework_display);
-        parsePrefXmlForFramework(context, com.sevtinge.hyperceiler.ui.hooker.framework.OtherSettings.class, R.xml.framework_other);
+        parsePrefXmlForFramework(context, com.sevtinge.hyperceiler.hooker.framework.OtherSettings.class, R.xml.framework_other);
         parsePrefXmlForFramework(context, CorePatchSettings.class, R.xml.framework_core_patch);
 
         // 系统界面页面相关
@@ -187,7 +182,7 @@ public class SearchHelper {
                 R.string.system_ui
         );
 
-        parsePrefXml(context, SystemUIOtherSettings.class,
+        parsePrefXml(context, com.sevtinge.hyperceiler.hooker.systemui.OtherSettings.class,
                 R.xml.system_ui_other,
                 R.string.system_ui);
 
@@ -314,7 +309,6 @@ public class SearchHelper {
         parsePrefXmlForDashboardFragment(context, R.xml.barrage);
         parsePrefXmlForDashboardFragment(context, R.xml.joyose);
         parsePrefXmlForDashboardFragment(context, R.xml.getapps);
-        parsePrefXmlForDashboardFragment(context, R.xml.notes);
         parsePrefXmlForDashboardFragment(context, R.xml.mtb);
         parsePrefXmlForDashboardFragment(context, R.xml.scanner);
         parsePrefXml(context, MiCloudServiceFragment.class, R.xml.micloud_service);
@@ -363,91 +357,103 @@ public class SearchHelper {
         parsePrefXml(context, catPrefsFragment.getName(), xmlResId, internalId);
     }
 
-private static void parsePrefXml(Context context, String catPrefsFragment, int xmlResId, int... internalId) {
-    Resources res = context.getResources();
-    try (XmlResourceParser xml = res.getXml(xmlResId)) {
-        int order = 0;
-        String location = null, locationHyper = null, locationPad = null;
-        int locationId = 0, locationHyperId = 0, locationPadId = 0;
-        boolean isPad = isPad();
-        StringBuilder internalName = null;
-        int eventType = xml.getEventType();
+    private static void parsePrefXml(Context context, String catPrefsFragment, int xmlResId, int... internalId) {
+        ThreadPoolManager.getInstance().submit(() -> {
+            Resources res = context.getResources();
+            try (XmlResourceParser xml = res.getXml(xmlResId)) {
+                int order = 0;
+                String location = null, locationPad = null;
+                int locationId = 0, locationPadId = 0;
+                boolean isPadDevice = isPad();
+                StringBuilder internalName = null;
+                int eventType = xml.getEventType();
 
-        if (internalId.length != 0) {
-            internalName = new StringBuilder();
-            for (int id : internalId) {
-                if (internalName.length() > 0) {
-                    internalName.append("/");
-                }
-                internalName.append(res.getString(id));
-            }
-        }
-
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if (eventType == XmlPullParser.START_TAG && !xml.getName().equals("PreferenceCategory")) {
-                try {
-                    ModData modData = new ModData();
-                    modData.title = getModTitle(res, xml.getAttributeValue(ANDROID_NS, "title"));
-                    boolean isPreferenceVisible = Boolean.parseBoolean(xml.getAttributeValue(APP_NS, "isPreferenceVisible"));
-
-                    if (locationPad == null) {
-                        locationPad = getModTitle(res, xml.getAttributeValue(APP_NS, "myLocationPad"));
-                        locationPadId = getModId(xml.getAttributeValue(APP_NS, "myLocationPad"));
-                    }
-                    if (location == null) {
-                        location = getModTitle(res, xml.getAttributeValue(APP_NS, "myLocation"));
-                        locationId = getModId(xml.getAttributeValue(APP_NS, "myLocation"));
-                    }
-
-                    if (!TextUtils.isEmpty(modData.title) && !isPreferenceVisible) {
-                        String internalPad = internalName == null ? locationPad : internalName + "/" + locationPad;
-                        String internal = internalName == null ? location : internalName + "/" + location;
-
-                        if (locationHyper == null || location == null || (isPad && locationPad == null)) {
-                            if (location != null) {
-                                modData.breadcrumbs = internal;
-                                modData.catTitleResId = locationId;
-                            } else if (locationPad != null) {
-                                modData.breadcrumbs = internalPad;
-                                modData.catTitleResId = locationPadId;
-                            }
-                        } else {
-                            if (!isPad) {
-                                modData.breadcrumbs = internal;
-                                modData.catTitleResId = locationId;
-                            } else {
-                                modData.breadcrumbs = internalPad;
-                                modData.catTitleResId = locationPadId;
-                            }
+                if (internalId.length != 0) {
+                    internalName = new StringBuilder();
+                    for (int id : internalId) {
+                        if (internalName.length() > 0) {
+                            internalName.append("/");
                         }
 
-                        modData.xml = xmlResId;
-                        modData.key = xml.getAttributeValue(ANDROID_NS, "key");
-                        modData.order = order;
-                        modData.fragment = catPrefsFragment;
-                        allModsList.add(modData);
+                        internalName.append(res.getString(id));
                     }
-                    order++;
-                } catch (Throwable t) {
-                    AndroidLogUtils.logE(TAG, "Failed to get xml keyword object!", t);
                 }
+
+                List<ModData> localList = new ArrayList<>(32);
+
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+                    if (eventType == XmlPullParser.START_TAG && !"PreferenceCategory".equals(xml.getName())) {
+                        try {
+                            String titleAttr = xml.getAttributeValue(ANDROID_NS, "title");
+                            String keyAttr = xml.getAttributeValue(ANDROID_NS, "key");
+                            String isPrefVisibleAttr = xml.getAttributeValue(APP_NS, "isPreferenceVisible");
+                            String myLocationPadAttr = xml.getAttributeValue(APP_NS, "myLocationPad");
+                            String myLocationAttr = xml.getAttributeValue(APP_NS, "myLocation");
+
+                            String modTitle = getModTitle(res, titleAttr);
+                            boolean isPreferenceVisible = Boolean.parseBoolean(isPrefVisibleAttr);
+
+                            if (locationPad == null && myLocationPadAttr != null) {
+                                locationPad = getModTitle(res, myLocationPadAttr);
+                                locationPadId = getModId(myLocationPadAttr);
+                            }
+                            if (location == null && myLocationAttr != null) {
+                                location = getModTitle(res, myLocationAttr);
+                                locationId = getModId(myLocationAttr);
+                            }
+
+                            if (!TextUtils.isEmpty(modTitle) && !isPreferenceVisible) {
+                                String internalPad = internalName == null ? locationPad : internalName + "/" + locationPad;
+                                String internal = internalName == null ? location : internalName + "/" + location;
+
+                                ModData modData = new ModData();
+                                modData.title = modTitle;
+                                if (location != null && (!isPadDevice || locationPad == null)) {
+                                    modData.breadcrumbs = internal;
+                                    modData.catTitleResId = locationId;
+                                } else if (locationPad != null) {
+                                    modData.breadcrumbs = internalPad;
+                                    modData.catTitleResId = locationPadId;
+                                }
+                                modData.xml = xmlResId;
+                                modData.key = keyAttr;
+                                modData.order = order;
+                                modData.fragment = catPrefsFragment;
+                                localList.add(modData);
+                            }
+                            order++;
+                        } catch (Throwable t) {
+                            AndroidLogUtils.logE(TAG, "Failed to get xml keyword object!", t);
+                        }
+                    }
+                    eventType = xml.next();
+                }
+
+                if (!localList.isEmpty()) {
+                    synchronized (allModsList) {
+                        allModsList.addAll(localList);
+                    }
+                }
+
+            } catch (Throwable t) {
+                AndroidLogUtils.logE(TAG, "Failed to access XML resource!", t);
             }
-            eventType = xml.next();
-        }
-    } catch (Throwable t) {
-        AndroidLogUtils.logE(TAG, "Failed to access XML resource!", t);
+        });
     }
-}
 
     private static int getModId(String title) {
         if (title == null) {
             return -1;
         }
-        int titleResId = Integer.parseInt(title.substring(1));
-        if (titleResId <= 0) {
+        try {
+            int titleResId = Integer.parseInt(title.substring(1));
+            if (titleResId <= 0) {
+                return -1;
+            }
+            return titleResId;
+        } catch (NumberFormatException e) {
             return -1;
         }
-        return titleResId;
     }
 
     private static String getModTitle(Resources res, String title) {

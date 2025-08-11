@@ -46,6 +46,7 @@
     <string name="about_device_info_os">系统版本</string>
 
     <string name="hyperceiler_notice">下拉状态栏，同时展示快捷开关和系统通知</string>
+    <string name="hyperceiler_restart_quick">快速重启作用域</string>
 
     <string name="delete_all_dexkit_cache_desc">确定要删除全部 DexKit 缓存吗？</string>
     <string name="delete_all_dexkit_cache_success">已删除全部 DexKit 缓存</string>
@@ -202,6 +203,7 @@
     <string name="color_picker_view_page_text_saturation">饱和度</string>
     <string name="miuix_appcompat_color_picker_custom_color">自定义颜色</string>
     <string name="miuix_appcompat_color_erro_entry">非法数值，请检查后重新输入</string>
+    <string name="miuix_preference_text_hint">范围: %1$s ~ %2$s, 默认值: %3$s</string>
     <string name="miuix_preference_textentry_erro_entry">非法数值，请检查后重新输入</string>
     <!--字符串复用-->
     <string name="top_margin">顶部边距</string>
@@ -376,6 +378,18 @@
 
     <string name="system_cc_showpct_style_1">内联</string>
     <string name="system_cc_showpct_style_2">外显</string>
+
+    <string name="media_control_ground_mode_1">封面艺术</string>
+    <string name="media_control_ground_mode_2">模糊封面</string>
+    <string name="media_control_ground_mode_3">径向渐变</string>
+    <string name="media_control_ground_mode_4">线性渐变</string>
+    <string name="media_control_ground_mode_5">材质模糊</string>
+
+    <string name="media_control_album_mode_1">隐藏来源标识</string>
+    <string name="media_control_album_mode_2">不可见</string>
+
+    <string name="media_control_button_mode_1">自定义按钮在最右侧</string>
+    <string name="media_control_button_mode_2">播放按钮在最左侧</string>
     <!--系统框架-->
     <string name="system_framework">系统框架</string>
     <string name="system_framework_volume_title">音量</string>
@@ -431,8 +445,6 @@
     <string name="system_framework_shortcut_title">分享快捷方式</string>
     <string name="system_framework_screen_all_rotations">屏幕旋转</string>
     <string name="system_framework_allow_untrusted_touch">允许不受信任的触摸操作</string>
-    <string name="system_framework_allow_uninstall">允许卸载部分预装 APP</string>
-    <string name="system_framework_allow_uninstall_desc">该功能具有一定危险性</string>
     <string name="system_framework_clipboard_whitelist">允许应用后台读取剪切板</string>
     <string name="system_framework_clipboard_whitelist_desc">允许应用获取 READ_LOGS 权限</string>
     <string name="system_framework_clipboard_whitelist_list">后台读取剪切板白名单</string>
@@ -457,7 +469,6 @@
     <string name="system_other_delete_on_post_notification_desc">移除 \"此应用正显示在屏幕上其他应用的上层\" 通知</string>
     <string name="system_framework_share_menu_test">分享菜单测试</string>
     <string name="system_framework_open_with_menu_test">打开方式菜单测试</string>
-    <string name="system_framework_other_use_original_animation">过渡动画使用原生样式</string>
     <string name="system_framework_other_speed_install">快速安装</string>
     <string name="system_framework_other_speed_install_desc">安装至运行内存以提升安装速度，需要系统底层支持</string>
     <string name="system_framework_other_rotation_button">旋转建议</string>
@@ -569,6 +580,7 @@
     <string name="mms_disable_overseas_risk_tip">禁用境外短信风险提示</string>
     <string name="mms_disable_overseas_risk_tip_desc">禁止展示 \"境外短信 注意风险\" 提示</string>
     <string name="mms_im_old_device">禁止识别为新设备</string>
+    <string name="mms_verification_code_auto_copy">验证码自动写入剪贴板</string>
     <!--电话服务-->
     <string name="phone">电话服务</string>
     <string name="phone_smart_dual_sim">解锁智能双卡切换</string>
@@ -691,12 +703,14 @@
     <string name="system_ui_status_bar_icon_mobile_network_hide_card_1">隐藏 SIM 卡 1 信号图标</string>
     <string name="system_ui_status_bar_icon_mobile_network_hide_card_2">隐藏 SIM 卡 2 信号图标</string>
     <string name="system_ui_status_bar_icon_mobile_network_type">显示逻辑</string>
+    <string name="system_ui_status_bar_icon_mobile_network_type_compatibility">兼容模式</string>
+    <string name="system_ui_status_bar_icon_mobile_network_type_compatibility_desc">修复部分设备上状态栏图标显示异常</string>
     <string name="system_ui_status_bar_big_mobile_network_type">大网络类型图标</string>
     <string name="system_ui_status_bar_icon_location">位置信息</string>
     <string name="system_ui_status_bar_icon_mic">麦克风</string>
     <string name="system_ui_status_bar_icon_alarm_clock">闹钟</string>
     <string name="system_ui_status_bar_icon_alarm_clock_n">仅在闹钟响铃前显示闹钟图标</string>
-    <string name="system_ui_status_bar_icon_alarm_clock_n_format">%d 小时</string>
+    <string name="system_ui_status_bar_icon_alarm_clock_n_format">%s 小时</string>
     <string name="system_ui_status_bar_icon_airplane">飞行模式</string>
     <string name="system_ui_status_bar_icon_roaming">隐藏漫游图标</string>
     <string name="system_ui_status_bar_icon_vowifi">隐藏 VoWiFi 图标</string>
@@ -786,6 +800,7 @@
     <string name="system_ui_statusbar_music_cusiom_notific_title">通知栏显示设置</string>
     <string name="system_ui_statusbar_music_show_notific_title">显示通知歌词</string>
     <string name="system_ui_statusbar_music_hide_aod_title">不在息屏下显示焦点通知</string>
+    <string name="system_ui_statusbar_music_show_aod_mode_title">使用自定义焦点息屏布局</string>
     <string name="system_ui_statusbar_music_cusiom_statusbar_title">状态栏显示设置</string>
     <string name="system_ui_statusbar_music_hide_clock_title">隐藏状态栏时钟</string>
     <string name="system_ui_statusbar_music_hide_clock_desc">显示焦点歌词时隐藏状态栏时钟，并调整下拉通知中心的动画</string>
@@ -811,7 +826,6 @@
     <string name="system_control_center_sunshine_mode_brightness_desc">过高的亮度可能导致屏幕老化，烧屏等不可逆后果，建议酌情选择亮度和使用</string>
     <string name="system_ui_control_auto_close">磁贴自动收起</string>
     <string name="system_ui_control_auto_close_more">开启后点击状态栏磁贴会自动收起状态栏</string>
-    <string name="system_control_center_qs_tile_label">移除标题</string>
     <string name="system_control_center_qs_rows">行数</string>
     <string name="system_control_center_qs_rows_format">%d 行</string>
     <string name="system_control_center_qs_rows_horizontal">行数（横屏）</string>
@@ -833,15 +847,27 @@
     <string name="system_ui_control_center_qs_color">图标颜色</string>
     <string name="system_ui_control_center_qs_open_color">已启用磁贴颜色自定义</string>
     <string name="system_ui_control_center_qs_big_open_color">已启用卡片磁贴颜色自定义</string>
-    <string name="system_ui_control_center_media_control_panel_background_mix">优化音乐面板背景混色效果</string>
     <string name="system_ui_control_center_media_control_album_picture_rounded_corners">优化专辑图片圆角过渡</string>
-    <string name="system_ui_control_center_media_control_remove_album_audio_source_identifie">移除专辑音频来源标识</string>
     <string name="system_ui_control_center_media_control_media_button_custom">自定义动作按钮大小</string>
     <string name="system_ui_control_center_media_control_media_button">固有动作按钮大小</string>
-    <string name="system_ui_control_center_remove_media_control_panel_background">移除卡片混色背景</string>
     <string name="system_ui_control_center_media_control_panel_background_mix_blur_radius">背景模糊半径</string>
-    <string name="system_ui_control_center_media_control_panel_background_mix_overlay">背景叠加层透明度</string>
-    <string name="system_ui_control_center_media_control_media_button_title">媒体按钮</string>
+    <string name="system_ui_control_center_media_control_media_background_title">媒体封面及背景</string>
+    <string name="system_ui_control_center_media_control_background_mode">背景风格</string>
+    <string name="system_ui_control_center_media_control_color_anim">颜色动画</string>
+    <string name="system_ui_control_center_media_control_color_anim_desc">使用动画更新文字颜色</string>
+    <string name="system_ui_control_center_media_control_inverse_color">自动反色</string>
+    <string name="system_ui_control_center_media_control_media_album_mode">媒体封面</string>
+    <string name="system_ui_control_center_media_control_media_album_mode_desc">选择不可见后，需同时启用布局修改开关才能生效</string>
+    <string name="system_ui_control_center_media_control_media_button_title">媒体控件</string>
+    <string name="system_ui_control_center_media_control_media_button_layout_switch">启用布局修改</string>
+    <string name="system_ui_control_center_media_control_media_button_size_switch">启用字体修改</string>
+    <string name="system_ui_control_center_media_control_media_button_actions_left_aligned">动作按钮左对齐</string>
+    <string name="system_ui_control_center_media_control_media_button_hide_seamless">隐藏设备切换按钮</string>
+    <string name="system_ui_control_center_media_control_media_button_mode">媒体按钮顺序</string>
+    <string name="system_ui_control_center_media_control_title_margin">标题上边距</string>
+    <string name="system_ui_control_center_media_control_title_padding">标题内边距</string>
+    <string name="system_ui_control_center_media_control_title_size">标题字体大小</string>
+    <string name="system_ui_control_center_media_control_artist_size">艺术家字体大小</string>
     <string name="system_ui_control_center_media_control_media_seekbar_title">媒体进度条</string>
     <string name="system_ui_control_center_redirect_notice">重定向通知设置</string>
     <string name="system_ui_control_center_redirect_notice_desc">打开通知菜单的设置会重新跳转到目标应用的通知频道设置，而不是应用通知设置</string>
@@ -853,6 +879,8 @@
     <string name="system_ui_control_center_unimportant_notification">禁止折叠为历史通知</string>
     <string name="system_ui_control_center_mute_visible_notice">亮屏时静音</string>
     <string name="system_ui_control_center_expand_notification">展开通知</string>
+    <string name="system_ui_control_center_auto_clean_expand_notification">自动隐藏展开的通知</string>
+    <string name="system_ui_control_center_expand_notification_show_time">显示时长</string>
     <string name="system_ui_control_center_mute_visible_notice_desc">亮屏时弹出通知不播放提示音</string>
     <string name="system_ui_control_center_rounded_rect">圆角矩形磁贴</string>
     <string name="system_ui_control_center_statusbar_blur">强制背景模糊</string>
@@ -906,7 +934,7 @@
     <string name="system_ui_others_pct_title">数据显示</string>
     <string name="system_cc_showpct_style">数据百分比显示样式</string>
     <string name="system_showpct_title">显示亮度百分比</string>
-    <string name="system_cc_volume_showpct_title">显示声音百分比</string>
+    <string name="system_cc_volume_showpct_title">显示音量百分比</string>
     <string name="system_ui_others_showpct_top">顶部边距</string>
     <string name="system_ui_others_showpct_top_desc">百分比提示框距屏幕顶部的距离</string>
     <string name="system_showpct_use_blur">使用高级材质效果</string>
@@ -932,9 +960,6 @@
     <string name="system_settings_international_build">国际版本设置页面</string>
     <string name="system_settings_novelty_haptic_title">解锁新版触感调节页面</string>
     <string name="system_settings_novelty_haptic_desc">仅支持有 \"声音与触感-触感\" 页面的设备</string>
-    <string name="system_settings_enable_pad_area">解锁平板专区</string>
-    <string name="system_settings_enable_fold_area">解锁折叠屏专区</string>
-    <string name="system_settings_enable_area_desc">不支持的设备解锁后会导致设置闪退</string>
     <string name="system_settings_unlock_google_header">禁止隐藏 \"Google\" 入口</string>
     <string name="system_settings_unlock_ui_mode">解锁应用布局优化</string>
     <string name="system_settings_usb_mode">接入 USB 时不弹窗</string>
@@ -999,8 +1024,6 @@
     <string name="theme_manager_version_code_modify_desc">调整检测版本以使用部分未适配新版本的主题</string>
     <string name="theme_manager_diable_ads">禁用广告</string>
     <string name="theme_manager_diable_ads_desc">将 \"猜你喜欢\" 的广告替换为空白卡片，其余位置的广告将完全移除</string>
-    <string name="theme_manager_enable_pad_theme">启用 Pad 主题</string>
-    <string name="theme_manager_enable_fold_theme">启用 Fold 主题</string>
     <string name="theme_manager_allow_download_more">允许在未登录的情况下下载更多内容</string>
     <string name="theme_manager_allow_download_more_desc">允许在未登录的情况下下载超过 10 个内容</string>
     <!--万能遥控-->
@@ -1092,6 +1115,7 @@
     <string name="home_navigation_assist_left_slide_desc">在任意界面从屏幕左下角向内滑动</string>
     <string name="home_navigation_assist_right_slide">左上滑动</string>
     <string name="home_navigation_assist_right_slide_desc">在任意界面从屏幕右下角向内滑动</string>
+    <string name="home_navigation_disable_full_screen_back_gesture">禁用全屏返回手势</string>
     <string name="home_navigation_back_area_height">返回手势区域高度</string>
     <string name="home_navigation_back_area_width">返回手势区域宽度</string>
     <string name="home_gesture_title2">手势</string>
@@ -1178,7 +1202,8 @@
     <string name="home_folder_shade_gradient">仅中间</string>
     <string name="home_folder_shade_level_title">色彩强度</string>
     <string name="home_folder_cols_title">文件夹排列数量</string>
-    <string name="home_folder_cols_format">%d 列</string>
+    <string name="home_folder_cols_format">%s 列</string>
+    <string name="home_folder_rows_format">%s 行</string>
     <string name="home_folder_horizontal_padding_desc">文件夹距离屏幕左右两边边距</string>
     <string name="home_folder_vertical_spacing_desc">文件夹各行之间的间距</string>
     <string name="home_folder_title_pos">标题位置</string>
@@ -1230,7 +1255,6 @@
     <string name="home_title_animation_speed">动画速度</string>
     <string name="home_title_big_icon_corner">中等图标圆角跟随</string>
     <string name="home_title_download_animation">下载动画</string>
-    <string name="home_title_fix_animation">优化打断动画</string>
     <string name="home_title_icon_scale">图标缩放</string>
     <string name="home_title_disable_hide_file">禁止隐藏 \"文件\" 图标</string>
     <string name="home_title_disable_hide_theme">禁止隐藏 \"主题壁纸\" 图标</string>
@@ -1256,6 +1280,8 @@
     <string name="home_recent_modify_animation">修改划卡动画</string>
     <string name="home_recent_text">无后台时显示的文本</string>
     <string name="home_recent_app_name_distance_task_view_card">应用名称距卡片</string>
+    <string name="home_recent_card_header_horizontal_position">卡片标题栏水平位置</string>
+    <string name="home_recent_task_view_height">平铺卡片高度</string>
     <string name="home_recent_task_view_card_rounded_corners">卡片圆角大小</string>
     <string name="home_recent_horizontal_task_view_card_size1">竖屏平铺卡片大小</string>
     <string name="home_recent_horizontal_task_view_card_size2">横屏平铺卡片大小</string>
@@ -1300,7 +1326,6 @@
     <string name="home_dock_icon_bottom_margin">图标距离底部边距</string>
     <string name="home_dock_margin_bottom">页面指示器距屏幕底部边距</string>
     <string name="home_dock_unlock_hotseat">解锁底栏图标数量限制</string>
-    <string name="home_dock_fold">Fold 样式底栏</string>
     <string name="home_dock_icon_title">显示应用标题</string>
     <string name="home_dock_disable_recents_icon">隐藏 Dock 栏最近应用的图标</string>
     <string name="home_dock_add_blur">Dock 栏背景样式</string>
@@ -1320,9 +1345,7 @@
     <string name="home_other_tasks_shortcut_menu">多开模式</string>
     <string name="home_other_tasks_shortcut_menu_desc">在快捷菜单中添加多开菜单</string>
     <string name="home_other_allow_share_apk">允许分享应用</string>
-    <string name="home_other_user_present_animation">优化解锁动画</string>
     <string name="home_other_always_blur_launcher_wallpaper">始终模糊桌面壁纸</string>
-    <string name="home_other_perfect_icon">完美图标优先级</string>
     <string name="home_other_icon_mono_chrome">图标背景色</string>
     <string name="home_other_icon_monet_color">使用 Monet 取色</string>
     <string name="home_other_use_edit_color">使用自定义颜色</string>
@@ -1392,9 +1415,6 @@
     <!--壁纸-->
     <string name="miwallpaper">壁纸</string>
     <string name="miwallpaper_unlock_super_wallpaper">解锁超级壁纸</string>
-    <!--笔记-->
-    <string name="notes">笔记</string>
-    <string name="notes_disable_ai_watermark">禁用水印</string>
     <!--应用包管理组件-->
     <string name="package_installer">应用包管理组件</string>
     <string name="miui_package_installer_modify">净化页面</string>
@@ -1437,6 +1457,7 @@
     <string name="powerkeeper_prevent_recovery_of_battery_optimization_whitelist">禁止恢复电池优化白名单</string>
     <string name="powerkeeper_disable_get_display_ctrl_code">禁止获取显示控制码</string>
     <string name="powerkeeper_gms_doze_fix">允许 Google Play 服务在任何时间联网</string>
+    <string name="powerkeeper_conservative_millet">使 Millet 更保守</string>
     <!--屏幕录制-->
     <string name="screenrecorder">屏幕录制</string>
     <string name="screen_recorder_force_support_playback_capture">强制启用原生屏幕录制支持</string>
@@ -1449,6 +1470,7 @@
     <!--截屏-->
     <string name="screenshot">截屏</string>
     <string name="screenshot_unlock_minimum_crop_limit">移除最小裁切图片限制</string>
+    <string name="screenshot_unlock_copy_to_clipboard">解锁截图自动写入到剪切板</string>
     <string name="screenshot_unlock_privacy_marking_title">解锁智能隐私打码</string>
     <string name="screenshot_unlock_privacy_marking_desc">需要预装高版本 \"MiAI引擎\" APP 才能正常使用</string>
     <string name="screenshot_save_to_pictures_desc">规范截屏保存位置到 Pictures/Screenshots</string>
@@ -1550,7 +1572,6 @@
     <string name="security_center_sidebar_show_suggest">禁止展示推荐应用</string>
     <string name="security_center_unlock_new_vb">解锁新版视频工具箱</string>
     <string name="security_center_game_performance_wild_mode">解锁游戏加速狂暴模式</string>
-    <string name="security_center_unlock_fbo">解锁焕新存储</string>
     <string name="security_center_sidebar_videobox_title">视频工具箱</string>
     <string name="security_center_sidebar_gamebox_title">游戏工具箱</string>
     <string name="security_center_sidebar_function_title">全局侧边栏功能</string>
@@ -1567,9 +1588,10 @@
     <string name="security_center_power_consumption_ranking">恢复显示耗电排行</string>
     <string name="security_center_hide_xopt_mode_tip">隐藏权限使用提示</string>
     <string name="security_center_battery_unlock_low_temp_ext_endurance">解锁低温超级续航</string>
-    <string name="secutity_center_unlock_app_sandbox">解锁应用存储沙盒</string>
     <string name="secutity_center_battery_show_more_info">显示更多电池信息</string>
     <string name="secutity_center_battery_show_more_info_desc">实验性功能，具体支持显示内容因设备而异</string>
+    <string name="security_center_unlock_car_sickness">解锁晕车缓解</string>
+    <string name="security_center_unlock_car_sickness_desc">需要 \"弹幕通知\" 支持</string>
     <!--MiTrustService-->
     <string name="trustservice">MiTrustService</string>
     <string name="trustservice_disable_mrm">禁用风险检测</string>
@@ -1597,10 +1619,11 @@
     <string name="aiasst">小爱翻译</string>
     <string name="aiasst_ai_captions">强制启用实时字幕</string>
     <string name="aiasst_all_captions">解锁多语言在线字幕</string>
-    <string name="aiasst_disable_watermark">禁用水印</string>
     <!--弹幕通知-->
     <string name="barrage">弹幕通知</string>
     <string name="barrage_any_barrage">允许所有应用使用弹幕通知</string>
+    <string name="barrage_global_enable">允许全局使用弹幕通知</string>
+    <string name="barrage_not_touchable">弹幕通知不可点击</string>
     <string name="barrage_custom_barrage_length">自定义弹幕长度</string>
     <!--Joyose-->
     <string name="joyose">Joyose</string>
@@ -1646,9 +1669,6 @@
     <string name="scanner_excel">解锁提取表格</string>
     <string name="scanner_ppt">解锁提取 PPT</string>
     <string name="scanner_doc_ppt">解锁扫文件</string>
-    <!--小爱同学-->
-    <string name="voiceassist_hyper">超级小爱</string>
-    <string name="voiceassist_disable_watermark">禁用对话界面水印</string>
     <!--通话管理-->
     <string name="telecom">通话管理</string>
     <string name="scam_reminder_bypass_caption">允许直接拨打呼叫转移 MMI 码</string>
@@ -1666,13 +1686,13 @@
     <string name="sim_activation_service_disable_activate_when_roaming_radical">使用更激进的漫游过滤方法</string>
     <!--其他-->
     <string name="various">其他</string>
+    <string name="input_method">输入法</string>
     <string name="share_center">小米妙享中心</string>
     <string name="new_task">多开</string>
     <string name="custom_hook">自定义</string>
 
     <string name="app_version_not_supported">不受支持的版本</string>
 
-    <string name="various_location_simulation_title">位置模拟</string>
     <string name="various_dialog_title">弹窗</string>
     <string name="various_mipad_title">Pad 相关</string>
     <string name="various_open_aosp_something_title">隐藏特性</string>
@@ -1688,13 +1708,6 @@
     <string name="various_collapse_miui_title">系统标题样式</string>
     <string name="various_collapse_miui_title_desc">调整系统应用中的顶栏标题</string>
     <string name="various_disable_folder_cantuse">移除部分文件夹不可选择限制</string>
-
-    <string name="various_super_clipboard_title">超级剪切板</string>
-    <string name="various_unlock_super_clipboard">超级剪切板行为</string>
-    <string name="various_super_clipboard_summary">仅支持包含 is_support_miui_super_clipboard 元数据的应用</string>
-    <string name="various_super_clipboard_picture_desc">允许复制图片至剪贴板</string>
-    <string name="various_super_clipboard_files_desc">允许复制文件至剪贴板</string>
-    <string name="various_super_clipboard_picture_share_desc">允许复制和粘贴图片至剪贴板</string>
 
     <string name="various_open_aosp_battery_title">电池优化</string>
     <string name="various_open_aosp_running_services">正在运行的服务</string>

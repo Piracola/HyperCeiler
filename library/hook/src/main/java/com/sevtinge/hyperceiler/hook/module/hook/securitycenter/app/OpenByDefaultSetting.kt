@@ -18,23 +18,30 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app
 
-import android.annotation.*
-import android.app.*
-import android.content.*
-import android.content.pm.verify.domain.*
-import android.net.*
-import android.provider.*
-import android.view.*
-import android.widget.*
-import com.github.kyuubiran.ezxhelper.EzXHelper.appContext
-import com.github.kyuubiran.ezxhelper.EzXHelper.classLoader
-import com.sevtinge.hyperceiler.hook.BuildConfig
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.verify.domain.DomainVerificationManager
+import android.provider.Settings
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.net.toUri
 import com.sevtinge.hyperceiler.hook.R
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
-import de.robv.android.xposed.*
-import de.robv.android.xposed.XposedHelpers.*
-import java.lang.reflect.*
+import com.sevtinge.hyperceiler.hook.module.base.tool.OtherTool
+import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.XposedHelpers
+import de.robv.android.xposed.XposedHelpers.callMethod
+import de.robv.android.xposed.XposedHelpers.getObjectField
+import de.robv.android.xposed.XposedHelpers.newInstance
+import io.github.kyuubiran.ezxhelper.core.ClassLoaderProvider.classLoader
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed.appContext
+import java.lang.reflect.Method
 
 
 @SuppressLint("DiscouragedApi")
@@ -45,10 +52,8 @@ class OpenByDefaultSetting : BaseHook() {
             DomainVerificationManager::class.java
         )
     }
-    private val moduleContext: Context by lazy(LazyThreadSafetyMode.NONE) {
-        appContext.createPackageContext(
-            BuildConfig.APP_MODULE_ID, 0
-        )
+    private val moduleContext by lazy {
+        OtherTool.getModuleRes(appContext)
     }
 
     private fun getOpenDefaultState(pkgName: String): String {
@@ -99,7 +104,7 @@ class OpenByDefaultSetting : BaseHook() {
             val intent = Intent().apply {
                 action = Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS
                 addCategory(Intent.CATEGORY_DEFAULT)
-                data = Uri.parse("package:${pkgName}")
+                data = "package:${pkgName}".toUri()
                 addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                 addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
             }
@@ -253,23 +258,23 @@ class OpenByDefaultSetting : BaseHook() {
         val sBootClassLoader: ClassLoader = Context::class.java.classLoader!!
 
         val fParent = ClassLoader::class.java.getDeclaredField("parent")
-        fParent.setAccessible(true)
+        fParent.isAccessible = true
         fParent.set(self, object : ClassLoader(sBootClassLoader) {
 
             override fun findClass(name: String?): Class<*> {
                 logD(TAG, lpparam.packageName, "OpenByDefaultSetting findClass $name")
                 try {
                     return sBootClassLoader.loadClass(name)
-                } catch (ignored: ClassNotFoundException) {
+                } catch (_: ClassNotFoundException) {
                 }
 
                 try {
                     return loader.loadClass(name)
-                } catch (ignored: ClassNotFoundException) {
+                } catch (_: ClassNotFoundException) {
                 }
                 try {
                     return host.loadClass(name)
-                } catch (ignored: ClassNotFoundException) {
+                } catch (_: ClassNotFoundException) {
                 }
 
                 throw ClassNotFoundException(name);

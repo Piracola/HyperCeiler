@@ -64,11 +64,6 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="prefs_key_system_framework_other_use_original_animation"
-            android:title="@string/system_framework_other_use_original_animation" />
-
-        <SwitchPreference
-            android:defaultValue="false"
             android:key="prefs_key_various_disable_access_device_logs"
             android:title="@string/various_disable_access_device_logs" />
 
@@ -184,12 +179,6 @@
             android:defaultValue="false"
             android:key="prefs_key_system_framework_posted_clipboard"
             android:title="@string/system_framework_posted_clipboard" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_system_framework_allow_uninstall"
-            android:summary="@string/system_framework_allow_uninstall_desc"
-            android:title="@string/system_framework_allow_uninstall" />
 
         <SwitchPreference
             android:defaultValue="false"

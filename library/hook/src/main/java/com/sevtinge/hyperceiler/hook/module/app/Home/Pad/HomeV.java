@@ -32,12 +32,10 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.SetDeviceLevel;
 import com.sevtinge.hyperceiler.hook.module.hook.home.StickyFloatingWindowsForHome;
 import com.sevtinge.hyperceiler.hook.module.hook.home.ToastSlideAgain;
 import com.sevtinge.hyperceiler.hook.module.hook.home.UnlockHotseatIcon;
-import com.sevtinge.hyperceiler.hook.module.hook.home.UserPresentAnimation;
 import com.sevtinge.hyperceiler.hook.module.hook.home.WidgetCornerRadius;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DisableRecentsIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DockCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DockCustomNew;
-import com.sevtinge.hyperceiler.hook.module.hook.home.dock.FoldDeviceDock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.FoldDock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.HideDock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.ShowDockIconTitle;
@@ -53,7 +51,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.folder.BigFolderIconBlur2x
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.BigFolderItemMaxCount;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderAnimation;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderAutoClose;
-import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderColumns;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderShade;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderVerticalSpacing;
@@ -74,6 +71,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.layout.UnlockGrids;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.WorkspacePadding;
 import com.sevtinge.hyperceiler.hook.module.hook.home.mipad.EnableHideGestureLine;
 import com.sevtinge.hyperceiler.hook.module.hook.home.mipad.EnableMoreSetting;
+import com.sevtinge.hyperceiler.hook.module.hook.home.mipad.SetGestureNeedFingerNum;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.BackGestureAreaHeight;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.BackGestureAreaWidth;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.HideNavigationBar;
@@ -87,13 +85,11 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.other.FreeformShortcutMenu
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.HomeMode;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.InfiniteScroll;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.OptAppLaunchDelay;
-import com.sevtinge.hyperceiler.hook.module.hook.home.other.OverlapMode;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShortcutItemCount;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShowAllHideApp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.TasksShortcutMenu;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.AlwaysShowCleanUp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BackgroundBlur;
-import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BlurLevel;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.CardTextColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.CardTextSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.FreeformCardBackgroundColor;
@@ -109,11 +105,11 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RemoveCardAnim;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RemoveIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RemoveLeftShare;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.ShowLaunch;
+import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewHeaderOffset;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewHorizontal;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewVertical;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.UnlockPin;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.AnimParamCustom;
-import com.sevtinge.hyperceiler.hook.module.hook.home.title.AppBlurAnim;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.BigIconCorner;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.DisableHideFile;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.DisableHideTheme;
@@ -121,7 +117,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.title.DownloadAnimation;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.EnableIconMonetColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.EnableIconMonoChrome;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.FakeNonDefaultIcon;
-import com.sevtinge.hyperceiler.hook.module.hook.home.title.FixAnimation;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.HiddenAllTitle;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.HideReportText;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconMessageColorCustom;
@@ -129,7 +124,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconTitleColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconTitleCustomization;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.LargeIconCornerRadius;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.NewInstallIndicator;
-import com.sevtinge.hyperceiler.hook.module.hook.home.title.PerfectIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.TitleFontSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.TitleMarquee;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.AllWidgetAnimation;
@@ -138,7 +132,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.widget.AlwaysShowMiuiWidge
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.HideWidgetTitles;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.ResizableWidgets;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.WidgetBlurOpt;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.mipad.SetGestureNeedFingerNum;
 
 import java.util.Objects;
 
@@ -201,7 +194,6 @@ public class HomeV extends BaseModule {
         initHook(new BigFolderIconBlur(), mPrefsMap.getBoolean("home_big_folder_icon_bg"));
         initHook(new BigFolderItemMaxCount(), mPrefsMap.getBoolean("home_big_folder_item_max_count"));
         initHook(new UnlockBlurSupported(), mPrefsMap.getBoolean("home_folder_unlock_blur_supported"));
-        // initHook(new RecommendAppsSwitch(), mPrefsMap.getBoolean("home_folder_recommend_apps_switch"));
 
         // 抽屉
         initHook(AppDrawer.INSTANCE, mPrefsMap.getBoolean("home_drawer_all") ||
@@ -211,7 +203,6 @@ public class HomeV extends BaseModule {
         initHook(new PinyinArrangement(), mPrefsMap.getBoolean("home_drawer_pinyin"));
 
         // 最近任务
-        initHook(BlurLevel.INSTANCE, mPrefsMap.getStringAsInt("home_recent_blur_level", 6) != 6 && !mPrefsMap.getBoolean("home_title_app_blur_enable"));
         initHook(HideStatusBarWhenEnterRecent.INSTANCE, mPrefsMap.getBoolean("home_recent_hide_status_bar_in_task_view"));
         initHook(RemoveCardAnim.INSTANCE, mPrefsMap.getBoolean("home_recent_modify_animation"));
         initHook(TaskViewHorizontal.INSTANCE, true);
@@ -227,6 +218,7 @@ public class HomeV extends BaseModule {
         initHook(RemoveLeftShare.INSTANCE, mPrefsMap.getBoolean("home_recent_hide_world_circulate"));
         initHook(RecentResource.INSTANCE, mPrefsMap.getInt("task_view_corners", 20) != 20 ||
                 mPrefsMap.getInt("task_view_header_height", 40) != 40);
+        initHook(TaskViewHeaderOffset.INSTANCE, mPrefsMap.getInt("task_view_header_horizontal_offset", 30) != 30);
         initHook(RealMemory.INSTANCE, mPrefsMap.getBoolean("home_recent_show_real_memory"));
         initHook(MemInfoShow.INSTANCE, mPrefsMap.getBoolean("home_recent_show_memory_info"));
         initHook(AlwaysShowCleanUp.INSTANCE, mPrefsMap.getBoolean("always_show_clean_up"));
@@ -242,8 +234,6 @@ public class HomeV extends BaseModule {
         initHook(DisableHideGoogle.INSTANCE, mPrefsMap.getBoolean("home_title_disable_hide_google"));
         initHook(new FakeNonDefaultIcon(), mPrefsMap.getBoolean("fake_non_default_icon"));
         initHook(new AnimParamCustom(), mPrefsMap.getBoolean("home_title_custom_anim_param_main"));
-        initHook(AppBlurAnim.INSTANCE, mPrefsMap.getBoolean("home_title_app_blur_enable"));
-        // initHook(new IconScaleHook()/*, mPrefsMap.getInt("home_title_icon_scale", 100) != 100*/);
 
         // 标题
         initHook(new TitleMarquee(), mPrefsMap.getBoolean("home_title_title_marquee"));
@@ -268,7 +258,6 @@ public class HomeV extends BaseModule {
         initHook(new DockCustom(), mPrefsMap.getBoolean("home_dock_bg_custom_enable") && mPrefsMap.getStringAsInt("home_dock_add_blur", 0) == 2);
         initHook(DockCustomNew.INSTANCE, mPrefsMap.getBoolean("home_dock_bg_custom_enable") && (mPrefsMap.getStringAsInt("home_dock_add_blur", 0) == 0 || mPrefsMap.getStringAsInt("home_dock_add_blur", 0) == 1));
         initHook(new SeekPoints(), mPrefsMap.getStringAsInt("home_other_seek_points", 0) > 0);
-        initHook(FoldDeviceDock.INSTANCE, mPrefsMap.getBoolean("home_dock_fold"));
         initHook(ShowDockIconTitle.INSTANCE, mPrefsMap.getBoolean("home_dock_icon_title"));
         initHook(new HideNavigationBar(), mPrefsMap.getBoolean("system_ui_hide_navigation_bar"));
         initHook(DisableRecentsIcon.INSTANCE, mPrefsMap.getBoolean("home_dock_disable_recents_icon"));
@@ -282,8 +271,6 @@ public class HomeV extends BaseModule {
         initHook(new InfiniteScroll(), mPrefsMap.getBoolean("home_other_infinite_scroll"));
         initHook(new FreeformShortcutMenu(), mPrefsMap.getBoolean("home_other_freeform_shortcut_menu"));
         initHook(new TasksShortcutMenu(), mPrefsMap.getBoolean("home_other_tasks_shortcut_menu"));
-        initHook(new UserPresentAnimation(), mPrefsMap.getBoolean("home_other_user_present_animation"));
-        initHook(new PerfectIcon(), mPrefsMap.getBoolean("home_other_perfect_icon"));
         initHook(new EnableIconMonoChrome(), mPrefsMap.getBoolean("home_other_icon_mono_chrome"));
         initHook(new HomePortraitReverse(), mPrefsMap.getBoolean("home_other_portrait_reverse"));
         initHook(AlwaysBlurWallpaper.INSTANCE, mPrefsMap.getBoolean("home_other_always_blur_launcher_wallpaper"));
@@ -297,18 +284,13 @@ public class HomeV extends BaseModule {
 
         // 实验性功能
         initHook(BlurWhenShowShortcutMenu.INSTANCE, mPrefsMap.getBoolean("home_other_shortcut_background_blur"));
-        initHook(FolderBlur.INSTANCE, mPrefsMap.getBoolean("home_folder_blur") && !mPrefsMap.getBoolean("home_title_app_blur_enable"));
         initHook(new FoldDock(), mPrefsMap.getBoolean("home_other_fold_dock"));
         // initHook(new AllAppsBlur); // ??
-        initHook(new FixAnimation(), mPrefsMap.getBoolean("home_title_fix_animation"));
         initHook(new LargeIconCornerRadius(), mPrefsMap.getBoolean("home_large_icon_enable"));
 
         // 多小窗
         initHook(new FreeFormCountForHome(), mPrefsMap.getBoolean("system_framework_freeform_count"));
         initHook(new MaxFreeForm(), mPrefsMap.getBoolean("system_framework_freeform_count"));
-
-        // Fold2样式负一屏
-        initHook(new OverlapMode(), mPrefsMap.getBoolean("personal_assistant_overlap_mode"));
 
         // Other
         initHook(new ToastSlideAgain(), mPrefsMap.getBoolean("home_other_toast_slide_again"));

@@ -27,8 +27,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.AntiQues;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.AppsFreezerEnable;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.ControlCenterStyle;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.DisableInstallUnknownVerify;
-import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.EnableFoldArea;
-import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.EnablePadArea;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.EnableSpeedMode;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.HyperCeilerSettings;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.InternationalBuild;
@@ -43,7 +41,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.QuickManageOverl
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.QuickManageUnknownAppSources;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.QuickManagerAccessibilityPermission;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.RunningServices;
-import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.ShowAutoUIMode;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.UnlockMaxFps;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.UnlockNeverSleepScreen;
 import com.sevtinge.hyperceiler.hook.module.hook.systemsettings.UnlockTaplusForSettings;
@@ -62,7 +59,6 @@ public class SystemSettingsU extends BaseModule {
     public void handleLoadPackage() {
         initHook(new HyperCeilerSettings(), mPrefsMap.getStringAsInt("settings_icon", 0) != 0);
 
-        initHook(new ShowAutoUIMode(), mPrefsMap.getBoolean("system_settings_unlock_ui_mode"));
         initHook(new LinkTurbo(), mPrefsMap.getBoolean("system_settings_linkturbo"));
         initHook(new RunningServices(), true); // 显示原生内存信息
         initHook(new UsbModeChoose(), mPrefsMap.getStringAsInt("system_settings_usb_mode_choose", 0) != 0
@@ -91,9 +87,6 @@ public class SystemSettingsU extends BaseModule {
         initHook(new MoreNotificationSettings(), mPrefsMap.getBoolean("system_settings_more_notification_settings"));
         initHook(new AllowManageAllNotifications(), mPrefsMap.getBoolean("system_framework_allow_manage_all_notifications"));
         initHook(new LanguageMenuShowAllApps(), mPrefsMap.getBoolean("system_settings_lang_menu_shouw_all_app"));
-
-        initHook(new EnablePadArea(), mPrefsMap.getBoolean("system_settings_enable_pad_area"));
-        initHook(new EnableFoldArea(), mPrefsMap.getBoolean("system_settings_enable_fold_area"));
 
         initHook(new ControlCenterStyle(), mPrefsMap.getBoolean("system_control_center_unlock_old"));
 
